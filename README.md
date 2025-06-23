@@ -5,13 +5,15 @@ Aplicativo android desenvolvido a partir de um trabalho acadêmico, que tem como
 
 ## Passos
 
-### Iniciar projeto
+### Como iniciar o projeto
 
-Cria a pasta frontend `npx @react-native-community/cli init meu-projeto`
+- `npm i` na raiz do projeto
 
-Valida se está tudo correto `npx react-native doctor` 
+- Adicione o arquivo google-services.json dentro da pasta ./android/app
 
-Inicia o emulador com Android Studio `npx react-native run-android`
+- Valida se está tudo correto `npx react-native doctor` 
+
+- Inicia o emulador com Android Studio `npx react-native run-android` em ./android
 
 
 ### Configuração Firebase

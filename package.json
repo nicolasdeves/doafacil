@@ -15,6 +15,7 @@
     "@react-native-firebase/firestore": "^22.2.1",
     "@react-native/new-app-screen": "0.80.0",
     "react": "19.1.0",
+    "react-hook-form": "^7.58.1",
     "react-native": "0.80.0",
     "zod": "^3.25.67"
   },
