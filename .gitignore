@@ -2,6 +2,10 @@
 #
 .DS_Store
 
+.vscode
+android
+.bundle
+
 # Xcode
 #
 build/
