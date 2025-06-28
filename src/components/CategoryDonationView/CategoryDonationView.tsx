@@ -7,7 +7,12 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+// Preciso disso para registrar o tipo da rota
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Category'>;
 
 // Construir algo na base para armazenar as categorias de doação
 const doacoesTeste = [
@@ -20,6 +25,8 @@ const doacoesTeste = [
 ];
 
 const CategoryDonationView = () => {
+  const navigation = useNavigation<NavigationProp>();
+
   return (
     <>
       <Text style={styles.categoryTitle}>Categorias</Text>
@@ -30,7 +37,16 @@ const CategoryDonationView = () => {
         contentContainerStyle={styles.categoriesContainer}
       >
         {doacoesTeste.map(doacao => (
-          <TouchableOpacity key={doacao.id} style={[styles.categoryItem]}>
+          <TouchableOpacity
+            key={doacao.id}
+            style={[styles.categoryItem]}
+            onPress={() =>
+              navigation.navigate('Category', {
+                categoryId: doacao.id,
+                categoryName: doacao.name,
+              })
+            }
+          >
             <View
               style={[styles.categoryIcon, { backgroundColor: doacao.color }]}
             >
@@ -45,23 +61,25 @@ const CategoryDonationView = () => {
 };
 
 export default CategoryDonationView;
+
 const styles = StyleSheet.create({
   categoryTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 16,
+    paddingHorizontal: 16,
   },
   categoriesContainer: {
-    flex: 1,
-    flexDirection: 'row',
     paddingHorizontal: 16,
-    justifyContent: 'space-between',
+    paddingVertical: 8,
+    flexDirection: 'row',
     gap: 16,
   },
   categoryItem: {
     alignItems: 'center',
-    flex: 1,
+    // flex: 1,
+    marginRight: 12, // ou use o gap acima
   },
   categoryIcon: {
     width: 56,

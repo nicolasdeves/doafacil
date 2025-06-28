@@ -31,7 +31,7 @@ const DonationCard = () => {
 
           <View style={styles.progressContainer}>
             <View style={styles.progressBar}>
-              <View style={[styles.progressFill, { width: '25%' }]} />
+              <View style={styles.progressFill} />
             </View>
             <Text style={styles.progressText}>25%</Text>
           </View>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#4CAF50',
     borderRadius: 3,
+    width: '25%',
   },
   progressText: {
     fontSize: 12,

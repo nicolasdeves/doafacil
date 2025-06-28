@@ -1,24 +1,16 @@
 import React from 'react';
 import { styles } from './styles';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 import DonationCard from '../../components/DonationCard/DonationCard';
 
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  SafeAreaProvider,
-  ScrollView,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import CategoryDonationView from '../../components/CategoryDonationView';
-import SearchHeader from '../../components/SearchHeader';
-import BalanceCard from '../../components/BalanceCard';
+import { SafeAreaView, ScrollView } from 'react-native';
+import CategoryDonationView from '../../components/CategoryDonationView/CategoryDonationView';
+import SearchHeader from '../../components/SearchHeader/SearchHeader';
+import BalanceCard from '../../components/BalanceCard/BalanceCard';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}

@@ -1,12 +1,20 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
+import { useNavigation } from '@react-navigation/native';
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Category'>;
 const SearchHeader = () => {
+  const navigation = useNavigation<NavigationProp>();
   return (
     <View style={styles.header}>
       <Text style={styles.title}>Bom dia!</Text>
-      <TouchableOpacity style={styles.searchContainer}>
+      <TouchableOpacity
+        style={styles.searchContainer}
+        onPress={() => navigation.navigate('Search')}
+      >
         <Text style={styles.searchPlaceholder}>Buscar campanhas...</Text>
         <Icon name="search" size={20} color="#999" />
       </TouchableOpacity>

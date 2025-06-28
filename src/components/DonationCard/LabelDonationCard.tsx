@@ -5,9 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const LabelDonationCard = () => {
   return (
     <View style={styles.sectionHeader}>
-      <Text style={[styles.sectionTitle, { marginTop: '24' }]}>
-        Última doação
-      </Text>
+      <Text style={styles.sectionTitle}>Última doação</Text>
       <TouchableOpacity>
         <Icon name="keyboard-arrow-right" size={24} color="#666666" />
       </TouchableOpacity>
@@ -23,6 +21,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 16,
+    marginTop: 24,
   },
   sectionHeader: {
     flexDirection: 'row',
