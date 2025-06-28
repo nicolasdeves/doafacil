@@ -1,10 +1,9 @@
-import { View } from 'react-native';
 import { styles } from './styles/styles';
 import { useEffect } from 'react';
 import analytics from '@react-native-firebase/analytics';
 import { addUser } from './services/user/user.service';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
-import { Icon } from 'react-native-vector-icons/Icon';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function App() {
   useEffect(() => {
@@ -16,9 +15,9 @@ function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HomeScreen />
-    </View>
+    </SafeAreaView>
   );
 }
 
