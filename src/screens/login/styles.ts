@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+    textAlign: 'center'
   },
 
   forgotPasswordText: {
@@ -128,6 +129,16 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
+    width: 300,
+  },
+
+  buttonCampaign: {
+    backgroundColor: '#00CB00',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginBottom: 10,
+    width: 300,
   },
   
 });

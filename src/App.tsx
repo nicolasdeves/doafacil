@@ -10,6 +10,7 @@ import CategoryScreen from './screens/CategoryScreen/CategoryScreen';
 import { RootStackParamList } from './navigation/types';
 import SearchScreen from './screens/SearchScreen/SearchScreen';
 import Login from './screens/login/Login';
+import CreateCampaign from './screens/Campaign/CreateCapaign';
 
 // Cria o Stack Navigator
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +32,7 @@ function App() {
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="Search" component={SearchScreen} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="CreateCampaign" component={CreateCampaign} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

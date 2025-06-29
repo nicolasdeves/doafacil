@@ -5,4 +5,5 @@ export type RootStackParamList = {
   Category: { categoryId: number; categoryName: string };
   Search: undefined;
   Login: undefined;
+  CreateCampaign: undefined;
 };

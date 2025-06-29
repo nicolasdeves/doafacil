@@ -52,6 +52,10 @@ const makeLogout = async () => {
     setUser(null)
 }
 
+const goToCreateCampaign = async () => {
+    navigation.navigate("CreateCampaign")
+}
+
 useEffect(() => {
     setUser(getCurrentUser())
 }, [])
@@ -69,7 +73,7 @@ useEffect(() => {
 
         {
             !user && (
-            <React.Fragment>
+            <View>
                 <View style={styles.inputContainer}>
                 {
                     type == 'register' && (
@@ -107,7 +111,7 @@ useEffect(() => {
                         <Text style={styles.socialText} onPress={makeLogout}>G</Text>
                     </View>
                 </View>
-            </React.Fragment>
+            </View>
             )
         }
 
@@ -115,6 +119,18 @@ useEffect(() => {
         user && (
         <View style={styles.loggedInContainer}>
             <Text style={styles.loggedInText}>{user.displayName ?? user.email}</Text>
+
+            <View style={styles.buttonCampaign}>
+            <Text style={styles.buttonText} onPress={goToCreateCampaign}>Criar campanha</Text>
+            </View>
+
+            <View style={styles.buttonCampaign}>
+            <Text style={styles.buttonText} onPress={makeLogout}>Minhas campanhas</Text>
+            </View>
+
+            <View style={styles.buttonCampaign}>
+            <Text style={styles.buttonText} onPress={makeLogout}>Minhas contribuições</Text>
+            </View>
 
             <View style={styles.buttonSignOut}>
             <Text style={styles.buttonText} onPress={makeLogout}>Sair</Text>
