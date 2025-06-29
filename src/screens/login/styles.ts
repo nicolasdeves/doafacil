@@ -108,4 +108,26 @@ export const styles = StyleSheet.create({
     height: 160,
     resizeMode: 'contain',
   },
+
+  loggedInContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  
+  loggedInText: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 24,
+    color: '#333',
+  },
+  
+  buttonSignOut: {
+    backgroundColor: '#FF3B30',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+  },
+  
 });

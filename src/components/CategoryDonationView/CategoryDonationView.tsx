@@ -19,9 +19,8 @@ const doacoesTeste = [
   { id: 1, name: 'Educação', icon: '🎓', color: '#4CAF50' },
   { id: 2, name: 'Clima', icon: '⚠️', color: '#FF9800' },
   { id: 3, name: 'Animal', icon: '🦊', color: '#FF5722' },
-  { id: 4, name: 'Outros', icon: '⚡', color: '#2196F3' },
-  { id: 5, name: 'Outros', icon: '⚡', color: '#2196F3' },
-  { id: 6, name: 'Outros', icon: '⚡', color: '#2196F3' },
+  { id: 4, name: 'Social', icon: '🧑', color: '#FF5722' },
+  { id: 5, name: 'Todos', icon: '⚡', color: '#2196F3' },
 ];
 
 const CategoryDonationView = () => {

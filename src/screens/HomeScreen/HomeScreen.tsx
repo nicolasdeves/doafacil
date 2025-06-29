@@ -16,10 +16,10 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
-        <SearchHeader />
+        {/* <SearchHeader /> */}
 
         {/* Cartão que mostra o saldo (mudar depois) */}
-        <BalanceCard />
+        {/* <BalanceCard /> */}
 
         {/* Botões com categorias */}
         <CategoryDonationView />

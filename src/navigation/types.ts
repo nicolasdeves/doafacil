@@ -4,4 +4,5 @@ export type RootStackParamList = {
   Home: undefined;
   Category: { categoryId: number; categoryName: string };
   Search: undefined;
+  Login: undefined;
 };
