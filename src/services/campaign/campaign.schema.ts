@@ -3,13 +3,14 @@ import firestore from '@react-native-firebase/firestore';
 
 export const CAMPAIGN_COLLECTION = 'campaign'
 export const campaignFirestore = firestore().collection(CAMPAIGN_COLLECTION);
+export const fs = firestore();
 
 export const campaignRequestSchema = z.object({
     title: z.string(),
     description: z.string(),
     category: z.enum(['weather', 'education', 'social', 'animal', 'other']),
     image: z.string(), //base64
-    user_id: z.string(),
+    // user_id: z.string(),
     status: z.enum(['pending', 'active', 'finished']), //pending => aguardando aprovação
     address: z.string(),
     city: z.string(),
@@ -18,7 +19,7 @@ export const campaignRequestSchema = z.object({
     longitude: z.number()
 })
 
-export type UserRequest = z.infer<typeof campaignRequestSchema>;
+export type CampaignRequest = z.infer<typeof campaignRequestSchema>;
 
 
 // const getAddressFromCoordinates = async (lat: number, lon: number) => {
@@ -27,3 +28,5 @@ export type UserRequest = z.infer<typeof campaignRequestSchema>;
 //     const data = await res.json();
 //     return data.display_name;
 //   };
+
+// https://viacep.com.br/ws/RS/Lajeado/Amazonas/json/
