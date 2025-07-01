@@ -3,22 +3,30 @@ import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LabelDonationCard from './LabelDonationCard';
 
-const DonationCard = () => {
+type DonationCardProps = {
+  title: string;
+  source: string;
+  imageUrl: string;
+  category: string;
+  progress: number;
+};
+
+const DonationCard = ({
+  title,
+  source,
+  imageUrl,
+  category,
+  progress,
+}: DonationCardProps) => {
   return (
     <>
-      {/* Se for a ultima doacao aparecer */}
-      <LabelDonationCard />
+      {/* <LabelDonationCard /> */}
 
       <View style={styles.donationCard}>
         <View style={styles.donationImageContainer}>
-          <Image
-            source={{
-              uri: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=300&fit=crop',
-            }}
-            style={styles.donationImage}
-          />
+          <Image source={{ uri: imageUrl }} style={styles.donationImage} />
           <View style={styles.educationTag}>
-            <Text style={styles.educationTagText}>Education</Text>
+            <Text style={styles.educationTagText}>{category}</Text>
           </View>
           <TouchableOpacity style={styles.bookmarkButton}>
             <Icon name="bookmark-border" size={20} color="#666" />
@@ -26,14 +34,18 @@ const DonationCard = () => {
         </View>
 
         <View style={styles.donationInfo}>
-          <Text style={styles.donationTitle}>Help Gopal to pay...</Text>
-          <Text style={styles.donationSource}>KitaOtang.com</Text>
+          <Text style={styles.donationTitle}>{title}</Text>
+          <Text style={styles.donationSource}>{source}</Text>
 
           <View style={styles.progressContainer}>
             <View style={styles.progressBar}>
-              <View style={styles.progressFill} />
+              <View
+                style={[styles.progressFill, { width: `${progress * 100}%` }]}
+              />
             </View>
-            <Text style={styles.progressText}>25%</Text>
+            <Text style={styles.progressText}>
+              {Math.round(progress * 100)}%
+            </Text>
           </View>
         </View>
       </View>

@@ -1,34 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import NavBar from '../../components/NavBar/NavBar';
 import DonationCard from '../../components/DonationCard/DonationCard';
 
-import { SafeAreaView, ScrollView } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import CategoryDonationView from '../../components/CategoryDonationView/CategoryDonationView';
+// import SearchHeader from '../../components/SearchHeader/SearchHeader';
+// import BalanceCard from '../../components/BalanceCard/BalanceCard';
+import firestore from '@react-native-firebase/firestore';
 import SearchHeader from '../../components/SearchHeader/SearchHeader';
 import BalanceCard from '../../components/BalanceCard/BalanceCard';
 
 const HomeScreen = () => {
+  const [campaigns, setCampaigns] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const snapshot = await firestore().collection('campaigns').get();
+
+        const data = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setCampaigns(data);
+      } catch (error) {
+        console.error('Erro ao buscar campanhas:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCampaigns();
+  }, []);
+
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={styles.container}>
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
         {/* <SearchHeader /> */}
-
-        {/* Cartão que mostra o saldo (mudar depois) */}
         {/* <BalanceCard /> */}
 
-        {/* Botões com categorias */}
         <CategoryDonationView />
 
-        {/* Cartão de doação */}
-        <DonationCard />
+        <View style={{ padding: 16 }}>
+          {loading ? (
+            <ActivityIndicator size="large" color="#4CAF50" />
+          ) : campaigns.length === 0 ? (
+            <Text style={{ textAlign: 'center', marginTop: 20 }}>
+              Nenhuma campanha disponível.
+            </Text>
+          ) : (
+            campaigns.map(campaign => (
+              <DonationCard
+                key={campaign.id}
+                title={campaign.title}
+                source={campaign.address}
+                imageUrl={campaign.imageUrl}
+                category={campaign.category}
+                progress={0.3} // Substitua por cálculo real futuramente
+              />
+            ))
+          )}
+        </View>
       </ScrollView>
 
-      {/* NavBar */}
       <NavBar />
     </SafeAreaView>
   );

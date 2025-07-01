@@ -3,31 +3,50 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { makeNavigation } from './make-navigation';
+import { useRoute } from '@react-navigation/native';
 
 const NavBar = () => {
   const navigation = makeNavigation();
+  const route = useRoute();
 
-  const goLogin = async() => {
-    navigation.navigate("Login")
-  }
+  const goLogin = async () => {
+    navigation.navigate('Login');
+  };
 
-  const goHome = async() => {
-    navigation.navigate("Home")
-  }
-  
+  const goHome = async () => {
+    navigation.navigate('Home');
+  };
+
+  const getIconColor = (routeName: string) =>
+    route.name === routeName ? '#4CAF50' : '#999999';
+
   return (
     <View style={styles.bottomNav}>
       <TouchableOpacity style={styles.navItem}>
-        <Icon name="home" size={24} color="#4CAF50" onPress={goHome} />
+        <Icon
+          name="home"
+          size={24}
+          color={getIconColor('Home')}
+          onPress={goHome}
+        />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem}>
-        <Icon name="notifications" size={24} color="#999" />
+        <Icon
+          name="notifications"
+          size={24}
+          color={getIconColor('Notifications')}
+        />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem}>
-        <Icon name="bookmark" size={24} color="#999" />
+        <Icon name="bookmark" size={24} color={getIconColor('Bookmark')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem}>
-        <Icon name="person" size={24} color="#999" onPress={goLogin}/>
+        <Icon
+          name="person"
+          size={24}
+          color={getIconColor('Login')}
+          onPress={goLogin}
+        />
       </TouchableOpacity>
     </View>
   );
