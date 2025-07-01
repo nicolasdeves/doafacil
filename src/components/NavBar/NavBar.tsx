@@ -17,6 +17,10 @@ const NavBar = () => {
     navigation.navigate('Home');
   };
 
+  const goMap = async () => {
+    navigation.navigate('Map');
+  };
+
   const getIconColor = (routeName: string) =>
     route.name === routeName ? '#4CAF50' : '#999999';
 
@@ -35,6 +39,14 @@ const NavBar = () => {
           name="notifications"
           size={24}
           color={getIconColor('Notifications')}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.navItem}>
+        <Icon
+          name="map"
+          size={24}
+          color={getIconColor('Map')}
+          onPress={goMap}
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem}>

@@ -6,4 +6,6 @@ export type RootStackParamList = {
   Search: undefined;
   Login: undefined;
   CreateCampaign: undefined;
+  Map: undefined;
+  MyCampaigns: undefined;
 };
