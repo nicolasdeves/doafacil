@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import LabelDonationCard from './LabelDonationCard';
+// import LabelDonationCard from './LabelDonationCard'; // descomente se precisar usar
 
 type DonationCardProps = {
   title: string;
@@ -9,6 +9,7 @@ type DonationCardProps = {
   imageUrl: string;
   category: string;
   progress: number;
+  onApprove?: () => void;
 };
 
 const DonationCard = ({
@@ -17,39 +18,42 @@ const DonationCard = ({
   imageUrl,
   category,
   progress,
+  onApprove,
 }: DonationCardProps) => {
   return (
-    <>
-      {/* <LabelDonationCard /> */}
-
-      <View style={styles.donationCard}>
-        <View style={styles.donationImageContainer}>
-          <Image source={{ uri: imageUrl }} style={styles.donationImage} />
-          <View style={styles.educationTag}>
-            <Text style={styles.educationTagText}>{category}</Text>
-          </View>
-          <TouchableOpacity style={styles.bookmarkButton}>
-            <Icon name="bookmark-border" size={20} color="#666" />
-          </TouchableOpacity>
+    <View style={styles.donationCard}>
+      <View style={styles.donationImageContainer}>
+        <Image source={{ uri: imageUrl }} style={styles.donationImage} />
+        <View style={styles.educationTag}>
+          <Text style={styles.educationTagText}>{category}</Text>
         </View>
-
-        <View style={styles.donationInfo}>
-          <Text style={styles.donationTitle}>{title}</Text>
-          <Text style={styles.donationSource}>{source}</Text>
-
-          <View style={styles.progressContainer}>
-            <View style={styles.progressBar}>
-              <View
-                style={[styles.progressFill, { width: `${progress * 100}%` }]}
-              />
-            </View>
-            <Text style={styles.progressText}>
-              {Math.round(progress * 100)}%
-            </Text>
-          </View>
-        </View>
+        <TouchableOpacity style={styles.bookmarkButton}>
+          <Icon name="bookmark-border" size={20} color="#666" />
+        </TouchableOpacity>
       </View>
-    </>
+
+      <View style={styles.donationInfo}>
+        <Text style={styles.donationTitle}>{title}</Text>
+        <Text style={styles.donationSource}>{source}</Text>
+
+        <View style={styles.progressContainer}>
+          <View style={styles.progressBar}>
+            <View
+              style={[styles.progressFill, { width: `${progress * 100}%` }]}
+            />
+          </View>
+          <Text style={styles.progressText}>
+            {Math.round(progress * 100)}%
+          </Text>
+        </View>
+
+        {onApprove && (
+          <TouchableOpacity style={styles.approveButton} onPress={onApprove}>
+            <Text style={styles.approveButtonText}>Aprovar</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
   );
 };
 
@@ -134,5 +138,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: '#4CAF50',
+  },
+  approveButton: {
+    marginTop: 16,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  approveButtonText: {
+    color: '#FFF',
+    fontWeight: '600',
+    fontSize: 14,
   },
 });

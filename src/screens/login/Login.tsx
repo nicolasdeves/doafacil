@@ -59,6 +59,10 @@ export function Login() {
     navigation.navigate('MyCampaigns');
   };
 
+  const goToApproveCampaigns = async () => {
+    navigation.navigate('ApproveCampaign');
+  }
+
   useEffect(() => {
     setUser(getCurrentUser());
   }, []);
@@ -158,6 +162,12 @@ export function Login() {
           <View style={styles.buttonCampaign}>
             <Text style={styles.buttonText} onPress={makeLogout}>
               Minhas contribuições
+            </Text>
+          </View>
+
+          <View style={styles.buttonCampaign}>
+            <Text style={styles.buttonText} onPress={goToApproveCampaigns}>
+              Aprovar campanhas
             </Text>
           </View>
 

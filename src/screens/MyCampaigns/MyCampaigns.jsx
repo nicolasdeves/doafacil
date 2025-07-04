@@ -6,9 +6,9 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 import DonationCard from '../../components/DonationCard/DonationCard';
+import { getLoggedUserCamapaigns } from '../../services/campaign/campaign.service';
+import NavBar from '../../components/NavBar/NavBar';
 
 const MyCampaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -17,18 +17,7 @@ const MyCampaigns = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const uid = auth().currentUser?.uid;
-        if (!uid) return;
-
-        const snapshot = await firestore()
-          .collection('campaigns')
-          .where('createdBy', '==', uid)
-          .get();
-
-        const data = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const data = await getLoggedUserCamapaigns()
 
         setCampaigns(data);
       } catch (error) {
@@ -69,6 +58,8 @@ const MyCampaigns = () => {
           ))}
         </ScrollView>
       )}
+      <NavBar />
+      
     </View>
   );
 };
