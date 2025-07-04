@@ -56,7 +56,7 @@ export async function getCamapaigns() {
     return campaigns;
 }
 
-export async function getActiveCamapaigns(status: CAMPAIGN_STATUS, category: CAMPAIGN_CATEGORY) {
+export async function getActiveCamapaigns() {
     const snapshot = await campaignFirestore
     .where('status', '==', 'active')
     .get();

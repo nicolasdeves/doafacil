@@ -11,12 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import CategoryDonationView from '../../components/CategoryDonationView/CategoryDonationView';
-// import SearchHeader from '../../components/SearchHeader/SearchHeader';
-// import BalanceCard from '../../components/BalanceCard/BalanceCard';
-import firestore from '@react-native-firebase/firestore';
-import SearchHeader from '../../components/SearchHeader/SearchHeader';
-import BalanceCard from '../../components/BalanceCard/BalanceCard';
-import { getCamapaigns } from '../../services/campaign/campaign.service';
+import { getActiveCamapaigns, getCamapaigns } from '../../services/campaign/campaign.service';
 
 const HomeScreen = () => {
   const [campaigns, setCampaigns] = useState<any[]>([]);
@@ -25,7 +20,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const data = await getCamapaigns()
+        const data = await getActiveCamapaigns()
 
         setCampaigns(data);
       } catch (error) {
