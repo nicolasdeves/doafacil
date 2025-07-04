@@ -34,13 +34,13 @@ const NavBar = () => {
           onPress={goHome}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem}>
+      {/* <TouchableOpacity style={styles.navItem}>
         <Icon
           name="notifications"
           size={24}
           color={getIconColor('Notifications')}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.navItem}>
         <Icon
           name="map"

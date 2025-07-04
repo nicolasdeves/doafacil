@@ -1,4 +1,4 @@
-import { campaignFirestore, CampaignRequest, fs } from "./campaign.schema";
+import { CAMPAIGN_CATEGORY, CAMPAIGN_STATUS, campaignFirestore, CampaignRequest } from "./campaign.schema";
 import auth from '@react-native-firebase/auth';
 
 
@@ -13,8 +13,8 @@ export async function create(data: CampaignRequest) {
         createdBy: auth().currentUser?.uid, // Registra o identificador do usuário pelo hash do documento
         imageUrl: data.image,
         status: 'pending',
-        latitude: getLatitudeLongitude(data.city, data.address, true),
-        longitude: getLatitudeLongitude(data.city, data.address, false),
+        latitude: await getLatitudeLongitude(data.city, data.address, true),
+        longitude: await getLatitudeLongitude(data.city, data.address, false),
       });
 }
 
@@ -45,4 +45,63 @@ async function getLatitudeLongitude(city: string, address: string, latitude: boo
       } catch (error) {
         console.error("Erro ao buscar lat/lng:", error);
       }
+}
+
+export async function getCamapaigns() {
+    const snapshot = await campaignFirestore
+      .get();
+
+    const campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    return campaigns;
+}
+
+export async function getActiveCamapaigns(status: CAMPAIGN_STATUS, category: CAMPAIGN_CATEGORY) {
+    const snapshot = await campaignFirestore
+    .where('status', '==', 'active')
+    .get();
+
+    const campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    return campaigns;
+}
+
+export async function getNonApprovedCamapaigns() {
+  const snapshot = await campaignFirestore
+    .where('status', '==', 'pending')
+    .get();
+
+  const campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  return campaigns;
+}
+
+export async function getCamapaignsUsingFilter(status: CAMPAIGN_STATUS, category: CAMPAIGN_CATEGORY) {
+  const snapshot = await campaignFirestore
+    .where('status', '==', status)
+    .where('category', '==', category)
+    .get();
+
+  const campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  return campaigns;
+}
+
+export async function getLoggedUserCamapaigns() {
+  const userId = auth().currentUser?.uid;
+  const snapshot = await campaignFirestore
+    .where('createdBy', '==', userId)
+    .get();
+
+  const campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  return campaigns;
+}
+
+export async function approveCampaign(id: string) {
+  await campaignFirestore
+          .doc(id)
+          .update({
+            status: CAMPAIGN_STATUS.ACTIVE
+          })
 }

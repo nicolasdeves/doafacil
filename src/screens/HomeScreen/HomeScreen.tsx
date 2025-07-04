@@ -16,6 +16,7 @@ import CategoryDonationView from '../../components/CategoryDonationView/Category
 import firestore from '@react-native-firebase/firestore';
 import SearchHeader from '../../components/SearchHeader/SearchHeader';
 import BalanceCard from '../../components/BalanceCard/BalanceCard';
+import { getCamapaigns } from '../../services/campaign/campaign.service';
 
 const HomeScreen = () => {
   const [campaigns, setCampaigns] = useState<any[]>([]);
@@ -24,12 +25,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const snapshot = await firestore().collection('campaigns').get();
-
-        const data = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const data = await getCamapaigns()
 
         setCampaigns(data);
       } catch (error) {

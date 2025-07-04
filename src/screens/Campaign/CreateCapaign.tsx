@@ -11,6 +11,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import storage from '@react-native-firebase/storage';
+import { create } from '../../services/campaign/campaign.service';
 
 // função para fazer o upload da imagem no firestore
 const uploadImage = async (image: any) => {
@@ -39,18 +40,15 @@ export function CreateCampaign() {
         imageUrl = await uploadImage(image);
       }
 
-      await firestore().collection('campaigns').add({
+      await create({
         title: data.title,
         description: data.description,
         category: data.category,
         address: data.address,
         city: data.city,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-        createdBy: auth().currentUser?.uid, // Registra o identificador do usuário pelo hash do documento
-        imageUrl,
+        image: imageUrl,
+        status: 'pending'
       });
-      console.log('Campanha criada com sucesso!');
-      // limpa os campos do formulário
       reset();
       navigation.navigate('Home');
     } catch (error) {

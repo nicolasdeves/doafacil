@@ -1,26 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import NavBar from "../../components/NavBar/NavBar";
+import { getCamapaigns } from "../../services/campaign/campaign.service";
 
 const Map = () => {
-  //pegar isso aqui do back das campanhas
-  const markers = [
-    {
-      id: 1,
-      latitude: -30.0346,
-      longitude: -51.2177,
-      title: "Porto Alegre",
-      description: "Capital do RS",
-    },
-    {
-      id: 2,
-      latitude: -23.5505,
-      longitude: -46.6333,
-      title: "São Paulo",
-      description: "Cidade grande demais kkk",
-    },
-  ];
+  const [markers, setMarkers] = useState<any[]>([]);
+
+  const fetchMarkers = async () => {
+    const campaigns = await getCamapaigns();
+    setMarkers(campaigns);
+  }
+
+  useEffect(() => {
+    fetchMarkers();
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -37,8 +31,8 @@ const Map = () => {
           <Marker
             key={marker.id}
             coordinate={{
-              latitude: marker.latitude,
-              longitude: marker.longitude,
+              latitude: Number(marker.latitude),
+              longitude: Number(marker.longitude),
             }}
           >
             <Callout>
