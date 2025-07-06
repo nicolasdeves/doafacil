@@ -76,9 +76,14 @@ export async function getNonApprovedCamapaigns() {
   return campaigns;
 }
 
-export async function getCamapaignsUsingFilter(status: CAMPAIGN_STATUS, category: CAMPAIGN_CATEGORY) {
+export async function getCamapaignsUsingFilter(
+  status: CAMPAIGN_STATUS[] | CAMPAIGN_STATUS,
+  category: CAMPAIGN_CATEGORY
+) {
+  const statusArray = Array.isArray(status) ? status : [status];
+
   const snapshot = await campaignFirestore
-    .where('status', '==', status)
+    .where('status', 'in', statusArray)
     .where('category', '==', category)
     .get();
 

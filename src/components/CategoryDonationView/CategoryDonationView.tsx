@@ -16,11 +16,11 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Category'>;
 
 // Construir algo na base para armazenar as categorias de doação
 const doacoesTeste = [
-  { id: 1, name: 'Educação', icon: '🎓', color: '#4CAF50' },
-  { id: 2, name: 'Clima', icon: '⚠️', color: '#FF9800' },
-  { id: 3, name: 'Animal', icon: '🦊', color: '#FF5722' },
-  { id: 4, name: 'Social', icon: '🧑', color: '#FF5722' },
-  { id: 5, name: 'Todos', icon: '⚡', color: '#2196F3' },
+  { id: 'education', name: 'Educação', icon: '🎓', color: '#4CAF50' },
+  { id: 'weather', name: 'Clima', icon: '⚠️', color: '#FF9800' },
+  { id: 'animal', name: 'Animal', icon: '🦊', color: '#FF5722' },
+  { id: 'social', name: 'Social', icon: '🧑', color: '#FF5722' },
+  { id: 'other', name: 'Outros', icon: '⚡', color: '#2196F3' },
 ];
 
 const CategoryDonationView = () => {
