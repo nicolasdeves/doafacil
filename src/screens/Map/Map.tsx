@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import NavBar from "../../components/NavBar/NavBar";
-import { getCamapaigns } from "../../services/campaign/campaign.service";
+import { getActiveCampaigns } from "../../services/campaign/campaign.service";
 
 const Map = () => {
   const [markers, setMarkers] = useState<any[]>([]);
 
   const fetchMarkers = async () => {
-    const campaigns = await getCamapaigns();
+    const campaigns = await getActiveCampaigns();
     setMarkers(campaigns);
   }
 
@@ -23,7 +23,7 @@ const Map = () => {
         initialRegion={{
           latitude: -30.0346,
           longitude: -51.2177,
-          latitudeDelta: 10,
+          latitudeDelta: 5,
           longitudeDelta: 10,
         }}
       >
