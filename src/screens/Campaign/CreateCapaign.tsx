@@ -34,8 +34,8 @@ export function CreateCampaign() {
 
   // Adição de dados no firebase
   const onSubmit = async (data: any) => {
+    let imageUrl = '';
     try {
-      let imageUrl = '';
       if (image) {
         imageUrl = await uploadImage(image);
       }
@@ -46,14 +46,16 @@ export function CreateCampaign() {
         category: data.category,
         address: data.address,
         city: data.city,
-        image: imageUrl,
-        status: 'pending'
+        imageUrl: imageUrl,
+        status: 'pending',
       });
-      reset();
-      navigation.navigate('Home');
+      console.log(imageUrl);
     } catch (error) {
+      console.log(imageUrl);
       console.error('Erro ao criar campanha:', error);
     }
+    reset();
+    navigation.navigate('Home');
   };
 
   // Input de imagem

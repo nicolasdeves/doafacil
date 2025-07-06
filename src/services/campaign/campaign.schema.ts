@@ -23,7 +23,7 @@ export const campaignRequestSchema = z.object({
     title: z.string(),
     description: z.string(),
     category: z.enum(['weather', 'education', 'social', 'animal', 'other']),
-    image: z.string(), //base64
+    imageUrl: z.string().url(), // URL da imagem no Firebase Storage
     status: z.enum(['pending', 'active', 'finished']), //pending => aguardando aprovação
     address: z.string(),
     city: z.string(),

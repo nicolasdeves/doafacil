@@ -11,7 +11,7 @@ export async function create(data: CampaignRequest) {
         city: data.city,
         createdAt: new Date(),
         createdBy: auth().currentUser?.uid, // Registra o identificador do usuário pelo hash do documento
-        imageUrl: data.image,
+        imageUrl: data.imageUrl,
         status: 'pending',
         latitude: await getLatitudeLongitude(data.city, data.address, true),
         longitude: await getLatitudeLongitude(data.city, data.address, false),
@@ -21,17 +21,17 @@ export async function create(data: CampaignRequest) {
 async function getLatitudeLongitude(city: string, address: string, latitude: boolean) {
     try {
         const endereco = `${address}, ${city}`;
-    
+
         const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(endereco)}&format=json`;
-    
+
         const response = await fetch(url, {
           headers: {
             "User-Agent": "doafacil",
           }
         });
-    
+
         const data = await response.json();
-    
+
         if (data.length > 0) {
           const { lat, lon } = data[0];
           console.log("Latitude:", lat);
@@ -47,7 +47,7 @@ async function getLatitudeLongitude(city: string, address: string, latitude: boo
       }
 }
 
-export async function getCamapaigns() {
+export async function getCampaigns() {
     const snapshot = await campaignFirestore
       .get();
 
@@ -56,7 +56,7 @@ export async function getCamapaigns() {
     return campaigns;
 }
 
-export async function getActiveCamapaigns() {
+export async function getActiveCampaigns() {
     const snapshot = await campaignFirestore
     .where('status', '==', 'active')
     .get();

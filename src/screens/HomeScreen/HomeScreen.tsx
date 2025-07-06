@@ -11,7 +11,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import CategoryDonationView from '../../components/CategoryDonationView/CategoryDonationView';
-import { getActiveCamapaigns, getCamapaigns } from '../../services/campaign/campaign.service';
+import {
+  getActiveCampaigns,
+  getCampaigns,
+} from '../../services/campaign/campaign.service';
 
 const HomeScreen = () => {
   const [campaigns, setCampaigns] = useState<any[]>([]);
@@ -20,7 +23,8 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const data = await getActiveCamapaigns()
+        // const data = await getActiveCampaigns();
+        const data = await getCampaigns();
 
         setCampaigns(data);
       } catch (error) {
