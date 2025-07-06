@@ -2,7 +2,9 @@ import { z } from "zod";
 import firestore from '@react-native-firebase/firestore';
 
 export const CAMPAIGN_COLLECTION = 'campaign'
+export const FAVORITES_COLLECTION = firestore().collection('campaign_favorites');
 export const campaignFirestore = firestore().collection(CAMPAIGN_COLLECTION);
+export const userFavoriteFirestore = firestore().collection('FAVORITES_COLLECTION');
 export const fs = firestore();
 
 export enum CAMPAIGN_STATUS {

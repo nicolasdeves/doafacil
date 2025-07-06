@@ -1,25 +1,47 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useState, useEffect } from 'react';
+import { favoriteCampaign } from '../../services/campaign/campaign.service';
 // import LabelDonationCard from './LabelDonationCard'; // descomente se precisar usar
 
 type DonationCardProps = {
+  campaignId: string;
   title: string;
   source: string;
   imageUrl: string;
   category: string;
   progress: number;
   onApprove?: () => void;
+  onUnfavorite?: (id: string) => void;
 };
 
 const DonationCard = ({
+  campaignId,
   title,
   source,
   imageUrl,
   category,
   progress,
   onApprove,
+  onUnfavorite,
 }: DonationCardProps) => {
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const favorite = async () => {
+    try {
+      const result = await favoriteCampaign(campaignId);
+      setIsFavorited(result.favorited);
+
+      if (!result.favorited && onUnfavorite) {
+        onUnfavorite(campaignId);
+      }
+      console.log(campaignId);
+    } catch (error) {
+      console.error('Erro ao favoritar campanha:', error);
+    }
+  };
+
   return (
     <View style={styles.donationCard}>
       <View style={styles.donationImageContainer}>
@@ -27,8 +49,12 @@ const DonationCard = ({
         <View style={styles.educationTag}>
           <Text style={styles.educationTagText}>{category}</Text>
         </View>
-        <TouchableOpacity style={styles.bookmarkButton}>
-          <Icon name="bookmark-border" size={20} color="#666" />
+        <TouchableOpacity style={styles.bookmarkButton} onPress={favorite}>
+          <Icon
+            name="bookmark-border"
+            size={20}
+            color={isFavorited ? '#4CAF50' : '#666'}
+          />
         </TouchableOpacity>
       </View>
 
@@ -42,9 +68,7 @@ const DonationCard = ({
               style={[styles.progressFill, { width: `${progress * 100}%` }]}
             />
           </View>
-          <Text style={styles.progressText}>
-            {Math.round(progress * 100)}%
-          </Text>
+          <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
         </View>
 
         {onApprove && (

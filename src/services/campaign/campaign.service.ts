@@ -1,4 +1,5 @@
-import { CAMPAIGN_CATEGORY, CAMPAIGN_STATUS, campaignFirestore, CampaignRequest } from "./campaign.schema";
+import { CAMPAIGN_CATEGORY, CAMPAIGN_STATUS, campaignFirestore, CampaignRequest, userFavoriteFirestore, FAVORITES_COLLECTION } from "./campaign.schema";
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 
@@ -109,4 +110,59 @@ export async function approveCampaign(id: string) {
           .update({
             status: CAMPAIGN_STATUS.ACTIVE
           })
+}
+
+export async function favoriteCampaign(campaignDocId: string) {
+  const userId = auth().currentUser?.uid;
+  if (!userId) throw new Error('Usuário não autenticado.');
+
+  const favRef = FAVORITES_COLLECTION
+    .where('userId', '==', userId)
+    .where('campaignId', '==', campaignDocId);
+
+  const snapshot = await favRef.get();
+
+  if (!snapshot.empty) {
+    // Já é favorito → desfavoritar
+    await Promise.all(snapshot.docs.map(doc => doc.ref.delete()));
+    return { favorited: false };
+  }
+
+  // Ainda não é favorito → favoritar
+  await FAVORITES_COLLECTION.add({
+    userId,
+    campaignId: campaignDocId,
+    createdAt: new Date(),
+  });
+  return { favorited: true };
+}
+
+export async function getFavoriteUserCampaigns() {
+  const userId = auth().currentUser?.uid;
+  if (!userId) throw new Error('Usuário não autenticado.');
+
+  const favSnapshot = await FAVORITES_COLLECTION
+    .where('userId', '==', userId)
+    .get();
+
+  const campaignIds = favSnapshot.docs.map(doc => doc.data().campaignId);
+
+  if (campaignIds.length === 0) return [];
+
+  // Firestore permite no máximo 10 itens em um 'in'
+  const chunks = [];
+  for (let i = 0; i < campaignIds.length; i += 10) {
+    chunks.push(campaignIds.slice(i, i + 10));
+  }
+
+  const results = await Promise.all(
+    chunks.map(async chunk => {
+      const snapshot = await campaignFirestore
+        .where(firestore.FieldPath.documentId(), 'in', chunk)
+        .get();
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    })
+  );
+
+  return results.flat();
 }

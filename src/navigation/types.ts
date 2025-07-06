@@ -9,4 +9,5 @@ export type RootStackParamList = {
   Map: undefined;
   MyCampaigns: undefined;
   ApproveCampaign: undefined;
+  Favorite: undefined;
 };

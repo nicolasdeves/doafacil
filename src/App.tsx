@@ -14,6 +14,7 @@ import CreateCampaign from './screens/Campaign/CreateCapaign';
 import MyCampaigns from './screens/MyCampaigns/MyCampaigns';
 import Map from './screens/Map/Map';
 import ApproveCampaign from './screens/ApproveCampaign/ApproveCampaign';
+import Favorite from './screens/Favorites/Favorites';
 
 // Cria o Stack Navigator
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -39,6 +40,7 @@ function App() {
           <Stack.Screen name="MyCampaigns" component={MyCampaigns} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="ApproveCampaign" component={ApproveCampaign} />
+          <Stack.Screen name="Favorite" component={Favorite} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

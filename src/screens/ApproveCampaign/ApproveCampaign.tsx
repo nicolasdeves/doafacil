@@ -10,22 +10,25 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native';
-import { approveCampaign, getNonApprovedCamapaigns } from '../../services/campaign/campaign.service';
+import {
+  approveCampaign,
+  getNonApprovedCamapaigns,
+} from '../../services/campaign/campaign.service';
 
 const ApproveCampaign = () => {
   const [campaigns, setCampaigns] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [trigger, setTrigger] = useState<number>(0)
+  const [trigger, setTrigger] = useState<number>(0);
 
   const handleApprove = async (id: string) => {
-    await approveCampaign(id)
-    setTrigger(t => t + 1)
-  }
+    await approveCampaign(id);
+    setTrigger(t => t + 1);
+  };
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const data = await getNonApprovedCamapaigns()
+        const data = await getNonApprovedCamapaigns();
 
         setCampaigns(data);
       } catch (error) {
@@ -39,8 +42,8 @@ const ApproveCampaign = () => {
   }, [trigger]);
 
   useEffect(() => {
-    setTrigger(t => t + 1)
-  }, [])
+    setTrigger(t => t + 1);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,7 +51,6 @@ const ApproveCampaign = () => {
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={{ padding: 16 }}>
           {loading ? (
             <ActivityIndicator size="large" color="#4CAF50" />
@@ -59,12 +61,13 @@ const ApproveCampaign = () => {
           ) : (
             campaigns.map(campaign => (
               <DonationCard
+                campaignId={campaign.id}
                 key={campaign.id}
                 title={campaign.title}
                 source={campaign.address}
                 imageUrl={campaign.imageUrl}
                 category={campaign.category}
-                progress={0} 
+                progress={0}
                 onApprove={() => handleApprove(campaign.id)}
               />
             ))

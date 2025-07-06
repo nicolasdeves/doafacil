@@ -39,6 +39,7 @@ const CategoryScreen = ({ route }: Props) => {
       ) : (
         campaigns.map(campaign => (
           <DonationCard
+            campaignId={campaign.id}
             key={campaign.id}
             title={campaign.title}
             source={campaign.source}

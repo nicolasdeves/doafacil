@@ -21,6 +21,10 @@ const NavBar = () => {
     navigation.navigate('Map');
   };
 
+  const goFavorite = async () => {
+    navigation.navigate('Favorite');
+  };
+
   const getIconColor = (routeName: string) =>
     route.name === routeName ? '#4CAF50' : '#999999';
 
@@ -50,7 +54,12 @@ const NavBar = () => {
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem}>
-        <Icon name="bookmark" size={24} color={getIconColor('Bookmark')} />
+        <Icon
+          name="bookmark"
+          size={24}
+          color={getIconColor('Bookmark')}
+          onPress={goFavorite}
+        />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem}>
         <Icon
