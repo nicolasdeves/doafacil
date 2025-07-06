@@ -35,6 +35,7 @@ export function Login() {
       setType('Login');
       reset();
       navigation.navigate('Login');
+      changeFormType()
     }
   };
 
@@ -101,6 +102,7 @@ export function Login() {
               name="password"
               placeholder="Write here"
               label="Senha"
+              secureTextEntry
             />
 
             {type == 'register' && (
@@ -109,6 +111,7 @@ export function Login() {
                 name="password-confirm"
                 placeholder="Write here"
                 label="Confirmar senha"
+                secureTextEntry
               />
             )}
           </View>
@@ -129,15 +132,15 @@ export function Login() {
             </View>
           </View>
 
-          <Text style={styles.orText}>Entre com</Text>
+          {/* <Text style={styles.orText}>Entre com</Text> */}
 
-          <View style={styles.socialButtonsContainer}>
+          {/* <View style={styles.socialButtonsContainer}>
             <View style={[styles.socialButton, styles.googleButton]}>
-              <Text style={styles.socialText} onPress={makeLogout}>
+              <Text style={styles.socialText} onPress={googleLogin}>
                 G
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
       )}
 
@@ -159,11 +162,11 @@ export function Login() {
             </Text>
           </View>
 
-          <View style={styles.buttonCampaign}>
+          {/* <View style={styles.buttonCampaign}>
             <Text style={styles.buttonText} onPress={makeLogout}>
               Minhas contribuições
             </Text>
-          </View>
+          </View> */}
 
           <View style={styles.buttonCampaign}>
             <Text style={styles.buttonText} onPress={goToApproveCampaigns}>
