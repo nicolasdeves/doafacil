@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {
   approveCampaign,
+  deleteCampaign,
   getNonApprovedCamapaigns,
 } from '../../services/campaign/campaign.service';
 
@@ -22,6 +23,11 @@ const ApproveCampaign = () => {
 
   const handleApprove = async (id: string) => {
     await approveCampaign(id);
+    setTrigger(t => t + 1);
+  };
+  
+  const handleReject = async (id: string) => {
+    await deleteCampaign(id);
     setTrigger(t => t + 1);
   };
 
@@ -69,6 +75,9 @@ const ApproveCampaign = () => {
                 category={campaign.category}
                 progress={0}
                 onApprove={() => handleApprove(campaign.id)}
+                onReject={() => handleReject(campaign.id)}
+                phone={campaign.phone}
+                email={campaign.email}
               />
             ))
           )}

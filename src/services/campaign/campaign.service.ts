@@ -1,7 +1,8 @@
 import { CAMPAIGN_CATEGORY, CAMPAIGN_STATUS, campaignFirestore, CampaignRequest, userFavoriteFirestore, FAVORITES_COLLECTION } from "./campaign.schema";
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-
+import { signInWithPopup } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 export async function create(data: CampaignRequest) {
     await campaignFirestore.add({
@@ -16,6 +17,8 @@ export async function create(data: CampaignRequest) {
         status: 'pending',
         latitude: await getLatitudeLongitude(data.city, data.address, true),
         longitude: await getLatitudeLongitude(data.city, data.address, false),
+        phone: data.phone,
+        email: data.email
       });
 }
 
@@ -109,6 +112,20 @@ export async function approveCampaign(id: string) {
           .doc(id)
           .update({
             status: CAMPAIGN_STATUS.ACTIVE
+          })
+}
+
+export async function deleteCampaign(id: string) {
+  await campaignFirestore
+          .doc(id)
+          .delete()
+}
+
+export async function finishCampaign(id: string) {
+  await campaignFirestore
+          .doc(id)
+          .update({
+            status: CAMPAIGN_STATUS.FINISHED
           })
 }
 

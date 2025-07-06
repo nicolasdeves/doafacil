@@ -2,25 +2,48 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
+    padding: 20,
+    backgroundColor: '#F9F9F9',
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 60,
-    backgroundColor: '#fff',
   },
 
-  title: {
-    fontSize: 24,
+  imagePicker: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 15,
+  },
+
+  imagePickerText: {
+    color: '#FFF',
     fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#1E1E1E',
-    textAlign: 'center',
+    fontSize: 16,
   },
 
-  subtitle: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 20,
+  imagePreview: {
+    width: 150,
+    height: 150,
+    marginTop: 15,
+    borderRadius: 10,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
 
+  submitButton: {
+    backgroundColor: '#2196F3',
+    paddingVertical: 14,
+    borderRadius: 8,
+    marginTop: 25,
+    alignItems: 'center',
+    marginBottom: 70
+  },
 
+  submitButtonText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });

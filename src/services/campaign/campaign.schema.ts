@@ -29,6 +29,8 @@ export const campaignRequestSchema = z.object({
     status: z.enum(['pending', 'active', 'finished']), //pending => aguardando aprovação
     address: z.string(),
     city: z.string(),
+    email: z.string(),
+    phone: z.string()
 })
 
 export type CampaignRequest = z.infer<typeof campaignRequestSchema>;

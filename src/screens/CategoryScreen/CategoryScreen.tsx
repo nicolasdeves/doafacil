@@ -8,6 +8,9 @@ import {
   CAMPAIGN_STATUS,
   CAMPAIGN_CATEGORY,
 } from '../../services/campaign/campaign.schema';
+import NavBar from '../../components/NavBar/NavBar';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { styles } from './styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Category'>;
 
@@ -33,23 +36,30 @@ const CategoryScreen = ({ route }: Props) => {
   }, [categoryId]);
 
   return (
-    <View style={{ padding: 20 }}>
-      {campaigns.length === 0 ? (
-        <Text>Nenhuma campanha disponível.</Text>
-      ) : (
-        campaigns.map(campaign => (
-          <DonationCard
-            campaignId={campaign.id}
-            key={campaign.id}
-            title={campaign.title}
-            source={campaign.source}
-            imageUrl={campaign.imageUrl}
-            category={campaign.category}
-            progress={0.3}
-          />
-        ))
-      )}
-    </View>
+    <SafeAreaView style={styles.container}>
+
+      <View style={{ padding: 20 }}>
+        {campaigns.length === 0 ? (
+          <Text>Nenhuma campanha disponível.</Text>
+        ) : (
+          campaigns.map(campaign => (
+            <DonationCard
+              campaignId={campaign.id}
+              key={campaign.id}
+              title={campaign.title}
+              source={campaign.source}
+              imageUrl={campaign.imageUrl}
+              category={campaign.category}
+              progress={0.3}
+              phone={campaign.phone}
+              email={campaign.email}
+            />
+          ))
+        )}
+
+      </View>
+      <NavBar/>
+    </SafeAreaView>
   );
 };
 

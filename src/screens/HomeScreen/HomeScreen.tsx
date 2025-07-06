@@ -24,7 +24,7 @@ const HomeScreen = () => {
     const fetchCampaigns = async () => {
       try {
         // const data = await getActiveCampaigns();
-        const data = await getCampaigns();
+        const data = await getActiveCampaigns();
 
         setCampaigns(data);
       } catch (error) {
@@ -65,6 +65,8 @@ const HomeScreen = () => {
                 imageUrl={campaign.imageUrl}
                 category={campaign.category}
                 progress={0.3} // Substitua por cálculo real futuramente
+                phone={campaign.phone}
+                email={campaign.email}
               />
             ))
           )}

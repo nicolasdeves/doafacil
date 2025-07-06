@@ -12,8 +12,13 @@ type DonationCardProps = {
   imageUrl: string;
   category: string;
   progress: number;
+  status?: string;
   onApprove?: () => void;
+  onReject?: () => void;
+  onFinish?: () => void;
   onUnfavorite?: (id: string) => void;
+  phone: string;
+  email: string;
 };
 
 const DonationCard = ({
@@ -23,8 +28,13 @@ const DonationCard = ({
   imageUrl,
   category,
   progress,
+  status,
   onApprove,
+  onReject,
+  onFinish,
   onUnfavorite,
+  phone,
+  email
 }: DonationCardProps) => {
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -48,7 +58,13 @@ const DonationCard = ({
         <Image source={{ uri: imageUrl }} style={styles.donationImage} />
         <View style={styles.educationTag}>
           <Text style={styles.educationTagText}>{category}</Text>
+          {
+            status && (
+              <Text style={styles.educationTagText}>{status}</Text>
+            )
+          }
         </View>
+        
         <TouchableOpacity style={styles.bookmarkButton} onPress={favorite}>
           <Icon
             name="bookmark-border"
@@ -61,19 +77,33 @@ const DonationCard = ({
       <View style={styles.donationInfo}>
         <Text style={styles.donationTitle}>{title}</Text>
         <Text style={styles.donationSource}>{source}</Text>
+        <Text style={styles.donationSource}>{phone}</Text>
+        <Text style={styles.donationSource}>{email}</Text>
 
-        <View style={styles.progressContainer}>
+        {/* <View style={styles.progressContainer}>
           <View style={styles.progressBar}>
             <View
               style={[styles.progressFill, { width: `${progress * 100}%` }]}
             />
           </View>
           <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
-        </View>
+        </View> */}
 
         {onApprove && (
           <TouchableOpacity style={styles.approveButton} onPress={onApprove}>
             <Text style={styles.approveButtonText}>Aprovar</Text>
+          </TouchableOpacity>
+        )}
+
+        {onReject && (
+          <TouchableOpacity style={styles.approveButton} onPress={onReject}>
+            <Text style={styles.approveButtonText}>Desaprovar</Text>
+          </TouchableOpacity>
+        )}
+
+        {onFinish && (
+          <TouchableOpacity style={styles.approveButton} onPress={onFinish}>
+            <Text style={styles.approveButtonText}>Finalizar campanha</Text>
           </TouchableOpacity>
         )}
       </View>

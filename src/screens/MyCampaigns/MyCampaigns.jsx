@@ -7,12 +7,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import DonationCard from '../../components/DonationCard/DonationCard';
-import { getLoggedUserCamapaigns } from '../../services/campaign/campaign.service';
+import { finishCampaign, getLoggedUserCamapaigns } from '../../services/campaign/campaign.service';
 import NavBar from '../../components/NavBar/NavBar';
 
 const MyCampaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [trigger, setTriffer] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,9 +27,17 @@ const MyCampaigns = () => {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, []);
+  }, [trigger]);
+
+  useEffect(() => {
+    setTriffer(t => t + 1)
+  }, [])
+
+  const handleFinishCampaign = async (id) => {
+    await finishCampaign(id)
+    setTriffer(t => t + 1)
+  }
 
   return (
     <View style={styles.container}>
@@ -53,7 +62,11 @@ const MyCampaigns = () => {
               source={campaign.address}
               imageUrl={campaign.imageUrl}
               category={campaign.category}
+              status={campaign.status}
               progress={0.45} // Pode calcular real futuramente
+              onFinish={(() => handleFinishCampaign(campaign.id))}
+              phone={campaign.phone}
+              email={campaign.email}
             />
           ))}
         </ScrollView>
